@@ -1,0 +1,4 @@
+name: AntiCheatBase
+version: ${project.version}
+main: org.union4dev.anticheat.AntiCheat
+author: Union4Dev

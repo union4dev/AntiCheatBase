@@ -1,0 +1,9 @@
+flag-logger:
+  # 是否输出flag信息
+  enabled: true
+  # 输出样式
+  # %player% -> 玩家名称
+  # %detector% -> 检测名称
+  # %vl% -> 该检测当前的vl
+  # %detail% 被检测的细节原因
+  log-style: "%player% failed %detector% check vl=%vl%"

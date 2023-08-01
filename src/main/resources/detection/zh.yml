@@ -1,0 +1,19 @@
+# 反作弊检测配置
+detections:
+  BadPackets:
+    BadPacketSlot:
+      # 是否启动BadPacketSlot检测
+      enabled: true
+      # 以下内容都未完成
+      setback:
+        # 是否回弹被BadPacketSlot检测的玩家
+        enabled: false
+      punishment:
+        # 处罚
+        # ban -> 封禁玩家
+        # kick -> 踢出玩家
+        # mute -> 禁言玩家
+        # none -> 无处罚
+        type: "none"
+        # 处罚原因 无处罚时可留空
+        reason: ""
