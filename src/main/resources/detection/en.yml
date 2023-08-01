@@ -8,6 +8,8 @@ detections:
       setback:
         # Setback players flagged BadPacketSlot check?
         enabled: false
+        # Setback if the violations are greater than this value
+        vl: 30
       punishment:
         # Punishment
         # ban -> Ban this player
