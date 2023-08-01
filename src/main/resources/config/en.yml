@@ -1,0 +1,9 @@
+flag-logger:
+  # Print flag logs
+  enabled: true
+  # Print styles
+  # %player% -> Player username
+  # %detector% -> Detector name
+  # %vl% -> Cheat violations
+  # %detail% Detect detail
+  log-style: "%player% failed %detector% check vl=%vl%"
