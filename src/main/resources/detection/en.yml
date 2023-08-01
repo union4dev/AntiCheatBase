@@ -15,5 +15,5 @@ detections:
         # mute
         # none
         type: "none"
-        # Reason of punishment, can be left blank when the type is none
+        # Reason of punishment, can be empty when the type is none
         reason: ""
