@@ -1,0 +1,19 @@
+# AntiCheat Detection Config
+detections:
+  BadPackets:
+    BadPacketSlot:
+      # Enable BadPacketSlot check?
+      enabled: true
+      # None of the following is complete
+      setback:
+        # Setback players flagged BadPacketSlot check?
+        enabled: false
+      punishment:
+        # Punishment
+        # ban
+        # kick
+        # mute
+        # none
+        type: "none"
+        # Reason of punishment, can be left blank when the type is none
+        reason: ""
