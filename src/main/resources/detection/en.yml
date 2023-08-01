@@ -10,10 +10,10 @@ detections:
         enabled: false
       punishment:
         # Punishment
-        # ban
-        # kick
-        # mute
-        # none
+        # ban -> Ban this player
+        # kick -> Kick this player, but can rejoin
+        # mute -> Block this player's chat message
+        # none -> No punishment
         type: "none"
         # Reason of punishment, can be empty when the type is none
         reason: ""
