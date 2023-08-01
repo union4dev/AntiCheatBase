@@ -8,6 +8,8 @@ detections:
       setback:
         # 是否回弹被BadPacketSlot检测的玩家
         enabled: false
+        # 当VL达到该值时开始回弹
+        vl: 30
       punishment:
         # 处罚
         # ban -> 封禁玩家

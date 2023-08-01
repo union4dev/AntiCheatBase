@@ -14,11 +14,14 @@ public abstract class Detector {
 
     private boolean enabled;
     private int vl;
+    private boolean setbackEnabled;
     private int setbackVl;
 
     public Detector(PlayerData player) {
         this.player = player;
         this.enabled = AntiCheatAPI.getInstance().getConfigManager().getConfig().getBooleanElse(String.format("detections.%s.%s.enabled", getType().display(), getName()), false);
+        this.setbackEnabled = AntiCheatAPI.getInstance().getConfigManager().getConfig().getBooleanElse(String.format("detections.%s.%s.setback.enabled", getType().display(), getName()), false);
+        this.setbackVl = AntiCheatAPI.getInstance().getConfigManager().getConfig().getIntElse(String.format("detections.%s.%s.setback.vl", getType().display(), getName()), 30);
     }
 
     public void flag() {
@@ -28,7 +31,7 @@ public abstract class Detector {
     }
 
     private void setBackProcess() {
-        if (vl > setbackVl) {
+        if (setbackEnabled && vl > setbackVl) {
             player.getTeleportManager().teleport(TeleportType.SLOT);
         }
     }
@@ -62,6 +65,18 @@ public abstract class Detector {
 
     public int getSetbackVl() {
         return setbackVl;
+    }
+
+    public void setSetbackVl(int setbackVl) {
+        this.setbackVl = setbackVl;
+    }
+
+    public boolean isSetbackEnabled() {
+        return setbackEnabled;
+    }
+
+    public void setSetbackEnabled(boolean setbackEnabled) {
+        this.setbackEnabled = setbackEnabled;
     }
 
     public void onPacketReceive(PacketReceiveEvent event) {
