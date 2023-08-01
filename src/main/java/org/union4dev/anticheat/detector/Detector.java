@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.union4dev.anticheat.AntiCheatAPI;
 import org.union4dev.anticheat.player.PlayerData;
+import org.union4dev.anticheat.util.dataset.TeleportType;
 
 public abstract class Detector {
 
@@ -13,6 +14,7 @@ public abstract class Detector {
 
     private boolean enabled;
     private int vl;
+    private int setbackVl;
 
     public Detector(PlayerData player) {
         this.player = player;
@@ -22,6 +24,13 @@ public abstract class Detector {
     public void flag() {
         vl++;
         printFlag();
+        setBackProcess();
+    }
+
+    private void setBackProcess() {
+        if (vl > setbackVl) {
+            player.getTeleportManager().teleport(TeleportType.SLOT);
+        }
     }
 
     private void printFlag() {
@@ -49,6 +58,10 @@ public abstract class Detector {
 
     public int getVl() {
         return vl;
+    }
+
+    public int getSetbackVl() {
+        return setbackVl;
     }
 
     public void onPacketReceive(PacketReceiveEvent event) {
