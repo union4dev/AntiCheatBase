@@ -55,6 +55,13 @@ public class PlayerLocation {
         this.pitch = pitch;
     }
 
+    public double getDistance(PlayerLocation location) {
+        final double xDiff = x - location.getX();
+        final double yDiff = y - location.getY();
+        final double zDiff = z - location.getZ();
+        return Math.sqrt(xDiff * xDiff + yDiff * yDiff + zDiff * zDiff);
+    }
+
     @Override
     public String toString() {
         return "PlayerLocation{" +

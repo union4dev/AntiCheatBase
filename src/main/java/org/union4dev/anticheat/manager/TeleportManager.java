@@ -6,33 +6,27 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.union4dev.anticheat.player.PlayerData;
 import org.union4dev.anticheat.util.dataset.PlayerLocation;
-import org.union4dev.anticheat.util.dataset.TeleportType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TeleportManager {
-    private final Map<TeleportType, PlayerLocation> teleportMap = new HashMap<>();
+    private final Map<Integer, PlayerLocation> teleportMap = new HashMap<>();
     private final PlayerData player;
 
     private PlayerLocation lastTeleport;
+    private long lastTeleportTime;
     private boolean teleporting;
 
     public TeleportManager(PlayerData player) {
         this.player = player;
     }
 
-    public void teleport(TeleportType type) {
+    public void teleport(int backtrack) {
         if (teleporting) return;
-        final PlayerLocation location = teleportMap.getOrDefault(type, null);
+        PlayerLocation location = teleportMap.getOrDefault(teleportMap.size() - backtrack - 1, null);
         if (location == null) return;
-
-        final List<TeleportType> teleportTypes = new ArrayList<>(teleportMap.keySet());
-        for (TeleportType teleportType : teleportTypes) {
-            teleportMap.put(teleportType, location);
-        }
+        if (lastTeleport != null && lastTeleport.getDistance(location) < 5 && System.currentTimeMillis() - lastTeleportTime < 1500) location = lastTeleport;
 
         final Player bukkitPlayer = Bukkit.getPlayer(player.getUniqueId());
         if (bukkitPlayer == null) return;
@@ -43,6 +37,7 @@ public class TeleportManager {
 
         bukkitPlayer.teleport(tpLocation);
         lastTeleport = location;
+        lastTeleportTime = System.currentTimeMillis();
         teleporting = true;
     }
 
@@ -62,11 +57,11 @@ public class TeleportManager {
         return player;
     }
 
-    public void putTeleport(TeleportType type, PlayerLocation location) {
-        teleportMap.put(type, location);
+    public void putTeleport(int tick, PlayerLocation location) {
+        teleportMap.put(tick, location);
     }
 
-    public Map<TeleportType, PlayerLocation> getTeleportMap() {
+    public Map<Integer, PlayerLocation> getTeleportMap() {
         return teleportMap;
     }
 }

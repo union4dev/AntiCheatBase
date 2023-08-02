@@ -6,7 +6,6 @@ import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientHe
 import org.union4dev.anticheat.detector.DetectionType;
 import org.union4dev.anticheat.detector.Detector;
 import org.union4dev.anticheat.player.PlayerData;
-import org.union4dev.anticheat.util.dataset.TeleportType;
 
 public class BadPacketSlot extends Detector {
 
@@ -21,11 +20,10 @@ public class BadPacketSlot extends Detector {
     public void onPacketReceive(PacketReceiveEvent event) {
         if (event.getPacketType() == PacketType.Play.Client.HELD_ITEM_CHANGE) {
             final WrapperPlayClientHeldItemChange packet = new WrapperPlayClientHeldItemChange(event);
-            cacheLocation(TeleportType.SLOT);
 
             currentSlot = packet.getSlot();
             if (currentSlot == lastSlot) {
-                flag(TeleportType.SLOT);
+                flag(3);
             }
 
             lastSlot = currentSlot;

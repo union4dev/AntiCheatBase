@@ -4,12 +4,8 @@ import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.union4dev.anticheat.AntiCheatAPI;
 import org.union4dev.anticheat.player.PlayerData;
-import org.union4dev.anticheat.util.dataset.PlayerLocation;
-import org.union4dev.anticheat.util.dataset.TeleportType;
 
 public abstract class Detector {
 
@@ -27,23 +23,15 @@ public abstract class Detector {
         this.setbackVl = AntiCheatAPI.getInstance().getConfigManager().getConfig().getIntElse(String.format("detections.%s.%s.setback.vl", getType().display(), getName()), 30);
     }
 
-    public void cacheLocation(TeleportType type) {
-        if (player.getTeleportManager().isTeleporting()) return;
-        final Player player = Bukkit.getPlayer(getPlayer().getUniqueId());
-        if (player == null) return;
-        final Location location = player.getLocation();
-        getPlayer().getTeleportManager().putTeleport(type, new PlayerLocation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch()));
-    }
-
-    public void flag(TeleportType type) {
+    public void flag(int backtrack) {
         vl++;
         printFlag();
-        setBackProcess(type);
+        setBackProcess(backtrack);
     }
 
-    private void setBackProcess(TeleportType type) {
+    private void setBackProcess(int backtrack) {
         if (setbackEnabled && vl > setbackVl) {
-            player.getTeleportManager().teleport(type);
+            player.getTeleportManager().teleport(backtrack);
         }
     }
 
