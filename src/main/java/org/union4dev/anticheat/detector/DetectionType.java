@@ -1,7 +1,7 @@
 package org.union4dev.anticheat.detector;
 
 public enum DetectionType {
-    BAD_PACKETS("BadPackets");
+    BAD_PACKETS("BadPackets"), MISC("Misc");
 
     private final String display;
 

@@ -4,6 +4,7 @@ import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import org.union4dev.anticheat.detector.Detector;
 import org.union4dev.anticheat.detector.implement.badpackets.BadPacketSlot;
+import org.union4dev.anticheat.detector.implement.misc.SetBackConfirm;
 import org.union4dev.anticheat.player.PlayerData;
 
 import java.util.HashMap;
@@ -15,7 +16,11 @@ public class DetectorManager {
 
     public DetectorManager(PlayerData player) {
         registerDetector(
-                new BadPacketSlot(player)
+                // BadPackets
+                new BadPacketSlot(player),
+
+                // Misc
+                new SetBackConfirm(player)
         );
     }
 

@@ -8,7 +8,9 @@ import org.union4dev.anticheat.player.PlayerData;
 import org.union4dev.anticheat.util.dataset.PlayerLocation;
 import org.union4dev.anticheat.util.dataset.TeleportType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TeleportManager {
@@ -16,14 +18,21 @@ public class TeleportManager {
     private final PlayerData player;
 
     private PlayerLocation lastTeleport;
+    private boolean teleporting;
 
     public TeleportManager(PlayerData player) {
         this.player = player;
     }
 
     public void teleport(TeleportType type) {
+        if (teleporting) return;
         final PlayerLocation location = teleportMap.getOrDefault(type, null);
         if (location == null) return;
+
+        final List<TeleportType> teleportTypes = new ArrayList<>(teleportMap.keySet());
+        for (TeleportType teleportType : teleportTypes) {
+            teleportMap.put(teleportType, location);
+        }
 
         final Player bukkitPlayer = Bukkit.getPlayer(player.getUniqueId());
         if (bukkitPlayer == null) return;
@@ -34,6 +43,15 @@ public class TeleportManager {
 
         bukkitPlayer.teleport(tpLocation);
         lastTeleport = location;
+        teleporting = true;
+    }
+
+    public boolean isTeleporting() {
+        return teleporting;
+    }
+
+    public void setTeleporting(boolean teleporting) {
+        this.teleporting = teleporting;
     }
 
     public PlayerLocation getLastTeleport() {

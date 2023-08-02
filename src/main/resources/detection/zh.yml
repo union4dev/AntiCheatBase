@@ -19,3 +19,15 @@ detections:
         type: "none"
         # 处罚原因 无处罚时可留空
         reason: ""
+  Misc:
+    SetBackConfirm:
+      # 是否启动回弹确认检测 (建议开启)
+      enabled: true
+      setback:
+        # 该检测不会导致flag
+        enabled: false
+        vl: 0
+      punishment:
+        # 该检测不会出现处罚
+        type: "none"
+        reason: ""
