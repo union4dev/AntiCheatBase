@@ -19,3 +19,15 @@ detections:
         type: "none"
         # Reason of punishment, can be empty when the type is none
         reason: ""
+  Misc:
+    SetBackConfirm:
+      # Enable SetBackConfirm check? (Suggest enable)
+      enabled: true
+      setback:
+        # This detection will not cause a flag
+        enabled: false
+        vl: 0
+      punishment:
+        # This detection will not result in punishment
+        type: "none"
+        reason: ""
