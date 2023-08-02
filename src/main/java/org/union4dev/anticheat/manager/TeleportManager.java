@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.union4dev.anticheat.player.PlayerData;
 import org.union4dev.anticheat.util.dataset.PlayerLocation;
+import org.union4dev.anticheat.util.player.PlayerUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,10 +27,10 @@ public class TeleportManager {
         if (teleporting) return;
         PlayerLocation location = teleportMap.getOrDefault(teleportMap.size() - backtrack - 1, null);
         if (location == null) return;
-        if (lastTeleport != null && lastTeleport.getDistance(location) < 5 && System.currentTimeMillis() - lastTeleportTime < 1500) location = lastTeleport;
-
         final Player bukkitPlayer = Bukkit.getPlayer(player.getUniqueId());
         if (bukkitPlayer == null) return;
+        if (lastTeleport != null && lastTeleport.getDistance(location) < 5 && System.currentTimeMillis() - lastTeleportTime < 1500 && !PlayerUtil.isAboveVoid(bukkitPlayer, location.getX(), location.getY(), location.getZ())) location = lastTeleport;
+
         final Location tpLocation = new Location(bukkitPlayer.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
         final Chunk chunkAt = bukkitPlayer.getWorld().getChunkAt(tpLocation);
         if (!bukkitPlayer.getWorld().isChunkLoaded(chunkAt))
